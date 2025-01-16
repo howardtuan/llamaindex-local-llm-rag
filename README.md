@@ -25,8 +25,8 @@ llamaindex-local-llm-rag/
 │  └── some_default_files         # chroma_db預設儲存的內容(已事先將 MyMD_temp 與 MyMD_New 匯入)
 ├──storage
 │  └── some_default_files         # storage預設儲存的內容(已事先將 MyMD_temp 與 MyMD_New 匯入)
-├── requirements.txt           # 列出專案必要套件
-└── README.md                  # 專案文件
+├── requirements.txt              # 列出專案必要套件
+└── README.md                     # 專案文件
 ```
 
 ## 設置說明
