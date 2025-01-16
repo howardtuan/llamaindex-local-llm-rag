@@ -5,16 +5,26 @@
 ## 專案結構
 
 ```
-web-app
-├── src
-│   ├── app.py                 # 網頁應用程式的主要入口
-│   ├── appBACKUP.py           # 舊版Flask後端備份
-│   ├── CreateChromaDB.py      # 初始化與建立ChromaDB
-│   ├── CreateGraphRagDB.py    # 初始化與建立知識圖譜
-│   ├── InsertNewMD.py         # 輸入MD檔案至ChromaDB與知識圖譜
-│   ├── PDF2MD.py              # 將PDF檔案轉至MD
-│   └── templates
-│       └── index.html         # 用戶界面的 HTML 模板
+llamaindex-local-llm-rag/
+|
+├──web-app/
+│  └── src/
+│      ├── app.py                 # 網頁應用程式的主要入口
+│      ├── appBACKUP.py           # 舊版Flask後端備份
+│      ├── CreateChromaDB.py      # 初始化與建立ChromaDB
+│      ├── CreateGraphRagDB.py    # 初始化與建立知識圖譜
+│      ├── InsertNewMD.py         # 輸入MD檔案至ChromaDB與知識圖譜
+│      ├── PDF2MD.py              # 將PDF檔案轉至MD
+│      │── templates
+│      │   └── index.html         # 用戶界面的 HTML 模板
+│      │── MyMD_temp
+│      │   └── original.MD        # 原始MD檔案
+│      └── MyMD_New
+│          └── new.MD             # 新的MD檔案(未來新增用的路徑)
+├──chroma_db/
+│  └── some_default_files         # chroma_db預設儲存的內容(已事先將 MyMD_temp 與 MyMD_New 匯入)
+├──storage
+│  └── some_default_files         # storage預設儲存的內容(已事先將 MyMD_temp 與 MyMD_New 匯入)
 ├── requirements.txt           # 列出專案必要套件
 └── README.md                  # 專案文件
 ```
@@ -37,12 +47,14 @@ web-app
    pip install -r requirements.txt
    ```
 3. **前置作業**：
+   - 若只想先測試的話可以直接進入`第4點`啟動伺服器
    - run `PDF2MD.py` : 將PDF文件轉成MD格式，並儲存在指定目錄(你也可以放txt文件)
    - run `CreateChromaDB.py` : 建立以及初始化ChromaDB
    - run `CreateGraphRagDB.py` : 建立以及初始化知識圖譜
    - 未來若有需要新增資料 run `InsertNewMD.py` : 新增MD檔案至ChromaDB與知識圖譜
 
 4. **運行應用程式**：<br>
+   請事先安裝`ollama`，並執行 `ollama pull llama3.1`<br>
    通過運行以下命令啟動 Flask 應用程式：
    ```
    python src/app.py
