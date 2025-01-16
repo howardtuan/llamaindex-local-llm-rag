@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector DB Q&A WEB</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Ask Your Question</h1>
+        <form id="questionForm" class="mt-3">
+            <div class="form-group">
+                <label for="questionInput">Question:</label>
+                <input type="text" class="form-control" id="questionInput" placeholder="Enter your question" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" id="graphRagBtn" class="btn btn-secondary">Graph RAG</button>
+        </form>
+        <div id="results" class="mt-4"></div>
+    </div>
+
+    <script>
+        document.getElementById('questionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const question = document.getElementById('questionInput').value;
+            const resultsDiv = document.getElementById('results');
+
+            // 清空之前的結果
+            resultsDiv.textContent = 'Loading...';
+
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultsDiv.innerHTML = `
+                    <h3>LLM Response:</h3>
+                    <p>${data.response}</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultsDiv.textContent = 'An error occurred. Please try again later.';
+            });
+        });
+
+        document.getElementById('graphRagBtn').addEventListener('click', function() {
+            const question = document.getElementById('questionInput').value;
+            const resultsDiv = document.getElementById('results');
+
+            // 清空之前的結果
+            resultsDiv.textContent = 'Loading...';
+
+            fetch('/graph-rag', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultsDiv.innerHTML = `
+                    <h3>Graph RAG Response:</h3>
+                    <p>${data.response}</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultsDiv.textContent = 'An error occurred. Please try again later.';
+            });
+        });
+    </script>
+</body>
+</html>
