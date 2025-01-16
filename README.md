@@ -1,4 +1,4 @@
-# 基於 LlamaIndex 和地端 LLM 的知識檢索與生成系統
+# 基於 LlamaIndex 和地端 LLM 的自然語言查詢系統
 本專案是一個基於 LlamaIndex 框架和地端 LLM (大型語言模型)的自然語言查詢系統。
 
 ## 使用的技術
