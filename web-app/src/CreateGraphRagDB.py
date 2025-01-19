@@ -4,10 +4,11 @@ from llama_index.core.graph_stores import SimpleGraphStore
 from llama_index.core import SimpleDirectoryReader
 from llama_index.llms.ollama import Ollama
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from LoadPathScript import load_json
 
 # 文件路徑
 documents_path = "MD文件資料夾位置"
-persist_dir = os.path.abspath("./storage")
+persist_dir = os.path.abspath(load_json("KG_db_path"))
 
 # 初始化 LLM 和嵌入模型
 Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")

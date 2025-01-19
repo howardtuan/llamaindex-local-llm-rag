@@ -5,11 +5,12 @@ from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core import VectorStoreIndex, Settings, StorageContext, load_index_from_storage
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.ollama import Ollama
+from LoadPathScript import load_json
 
 app = Flask(__name__)
 
-persist_dir = os.path.abspath("./storage")
-chroma_db_path = os.path.abspath("./chroma_db")
+persist_dir = load_json("KG_db_path")
+chroma_db_path = load_json("chroma_db_path")
 
 print("伺服器已啟動，目前正在初始化，請稍等...")
 
@@ -30,9 +31,6 @@ Settings.llm = Ollama(model="llama3.1", request_timeout=360.0)
 # 從 ChromaDB 創建 VectorStoreIndex
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store, storage_context=storage_context)
 query_engine = index.as_query_engine()
-
-# 文件路徑
-documents_path = "C:\\Users\\howar\\OneDrive\\桌面\\RAG_Project_withUI_test\\web-app\\src\\MyMD_temp"
 
 def initialize_graph_rag():
     # 初始化嵌入模型和 LLM

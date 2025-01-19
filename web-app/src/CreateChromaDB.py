@@ -2,10 +2,12 @@ import chromadb
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core import SimpleDirectoryReader,StorageContext,VectorStoreIndex
 from llama_index.vector_stores.chroma import ChromaVectorStore
+from LoadPathScript import load_json
 
 def import_documents_to_chroma(directory, collection_name="quickstart"):
     print("初始化ChromaDB客戶端...")
-    db = chromadb.PersistentClient(path="./chroma_db")
+    db = chromadb.PersistentClient(path=load_json("chroma_db_path"))
+    
     chroma_collection = db.get_or_create_collection("quickstart")
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     storage_context = StorageContext.from_defaults(vector_store=vector_store)

@@ -1,9 +1,10 @@
 import os
 from markitdown import MarkItDown
+from LoadPathScript import load_json
 
 # 定義 PDF 資料夾與目標 Markdown 資料夾路徑
-pdf_folder = "PDF文件資料夾位置"
-md_folder = "未來要儲存MD資料夾的位置"
+pdf_folder = load_json("my_pdf_path")
+md_folder = load_json("my_md_temp_path")# 看要是 `my_md_temp_path` 還是 `my_md_new_path`
 
 # 確保目標 Markdown 資料夾存在
 os.makedirs(md_folder, exist_ok=True)

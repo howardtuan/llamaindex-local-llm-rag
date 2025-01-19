@@ -10,7 +10,6 @@ llamaindex-local-llm-rag/
 ├──web-app/
 │  └── src/
 │      ├── app.py                 # 網頁應用程式的主要入口
-│      ├── appBACKUP.py           # 舊版Flask後端備份
 │      ├── CreateChromaDB.py      # 初始化與建立ChromaDB
 │      ├── CreateGraphRagDB.py    # 初始化與建立知識圖譜
 │      ├── InsertNewMD.py         # 輸入MD檔案至ChromaDB與知識圖譜
@@ -18,9 +17,11 @@ llamaindex-local-llm-rag/
 │      │── templates
 │      │   └── index.html         # 用戶界面的 HTML 模板
 │      │── MyMD_temp
-│      │   └── original.MD        # 原始MD檔案
-│      └── MyMD_New
-│          └── new.MD             # 新的MD檔案(未來新增用的路徑)
+│      │   └── original.md        # 原始MD檔案(也可自行放自己的txt)
+│      │── MyMD_New
+│      │   └── new.md             # 新的MD檔案(未來新增用的路徑)
+│      └── MyPDF
+│          └── new.pdf            # 原始檔案(以PDF為例)
 ├──chroma_db/
 │  └── some_default_files         # chroma_db預設儲存的內容(已事先將 MyMD_temp 與 MyMD_New 匯入)
 ├──storage
@@ -47,11 +48,14 @@ llamaindex-local-llm-rag/
    pip install -r requirements.txt
    ```
 3. **前置作業**：
-   - 若只想先測試的話可以直接進入`第4點`啟動伺服器
-   - run `PDF2MD.py` : 將PDF文件轉成MD格式，並儲存在指定目錄(你也可以放txt文件)
+   - 若只想先測試的話可以直接進入`第4點`啟動伺服器(使用事先建立好的測試資料庫)
+   - del `chroma_DB` 與 `KG_db` : 把測試資料庫移除
+   - open `LoadPathScript.py` : 確認`load_json`function內的`file_path`是正確的
+   - open `Config.json` : 重設路徑
+   - run `PDF2MD.py` : 將PDF文件轉成MD格式
    - run `CreateChromaDB.py` : 建立以及初始化ChromaDB
    - run `CreateGraphRagDB.py` : 建立以及初始化知識圖譜
-   - 未來若有需要新增資料 run `InsertNewMD.py` : 新增MD檔案至ChromaDB與知識圖譜
+   - 未來若有需要新增資料 run `InsertNewMD.py` : 新增MD檔案至ChromaDB與知識圖譜(KG)
 
 4. **運行應用程式**：<br>
    請事先安裝`ollama`，並執行 `ollama pull llama3.1`<br>
@@ -114,5 +118,5 @@ llamaindex-local-llm-rag/
 Q : 語言模型無法回應？<br>
 A : 確保您的 Ollama 模型已正確安裝，且服務已啟動。本專案的LLM是llama 3.1:8b<br>
 
-Q : 路徑不正確導致儲存失敗？<br>
-A : 確保設定的 persist_dir 和 chroma_db_path 是一致的。<br>
+Q : 如何改成自己的資料進行訓練?
+A : 進入`Config.json`更改檔案路徑，並把原始的`chroma_DB`跟`KG_db`刪掉，接著就可以參照`步驟3-前置作業`

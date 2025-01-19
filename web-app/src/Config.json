@@ -1,0 +1,7 @@
+{
+    "KG_db_path": "C:\\Users\\howar\\OneDrive\\桌面\\llamaindex-local-llm-rag\\KG_db",
+    "chroma_db_path": "C:\\Users\\howar\\OneDrive\\桌面\\llamaindex-local-llm-rag\\chroma_db",
+    "my_pdf_path": "C:\\Users\\howar\\OneDrive\\桌面\\llamaindex-local-llm-rag\\web-app\\src\\MyPDF",
+    "my_md_temp_path": "C:\\Users\\howar\\OneDrive\\桌面\\llamaindex-local-llm-rag\\web-app\\src\\MyMD_temp",
+    "my_md_new_path": "C:\\Users\\howar\\OneDrive\\桌面\\llamaindex-local-llm-rag\\web-app\\src\\MyMD_New"
+}

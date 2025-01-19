@@ -4,9 +4,13 @@ from llama_index.core import SimpleDirectoryReader, KnowledgeGraphIndex, Storage
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.ollama import Ollama
 from llama_index.vector_stores.chroma import ChromaVectorStore
+from LoadPathScript import load_json
+
 # 配置路径
-persist_dir = os.path.abspath("./storage")
-chroma_db_path = os.path.abspath("./chroma_db")
+
+
+persist_dir = os.path.abspath(load_json("KG_db_path"))
+chroma_db_path = os.path.abspath(load_json("chroma_db_path"))
 Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
 Settings.llm = Ollama(model="llama3.1", request_timeout=360.0)
 def update_chroma_db(new_docs_path, collection_name="quickstart"):
@@ -90,10 +94,9 @@ def update_knowledge_graph(new_docs_path):
 if __name__ == "__main__":
     # ChromaDB 可以正常匯入新資料，但是KnowledgeGraphIndex可能會有bug，但可以確認的是它會新增在storage資料夾
 
-    new_docs_path = "C:\\Users\\howar\\OneDrive\\桌面\\RAG_Project_withUI_test\\web-app\\src\\MyMD_New"
+    new_docs_path = load_json("my_pdf_path")
     print("\n開始更新 ChromaDB...")
     update_chroma_db(new_docs_path)
-
     print("\n開始更新 KnowledgeGraphIndex...")
     update_knowledge_graph(new_docs_path)
 
